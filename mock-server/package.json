@@ -1,0 +1,16 @@
+{
+  "name": "rag-system-mock-server",
+  "version": "1.0.0",
+  "description": "Mock server for testing RAG system frontend",
+  "main": "mock-server.js",
+  "scripts": {
+    "start": "node mock-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.0",
+    "body-parser": "^1.20.2"
+  }
+}

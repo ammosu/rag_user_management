@@ -1,0 +1,55 @@
+.workspace-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.workspace-page h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.documents-list {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.documents-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.documents-list th,
+.documents-list td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.documents-list th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.documents-list tr:hover {
+  background-color: #f9f9f9;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: #666;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
