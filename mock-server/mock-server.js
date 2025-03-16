@@ -497,9 +497,147 @@ app.get('/api/workspaces/:workspaceId/documents', authenticateToken, (req, res) 
   res.json(workspaceDocs);
 });
 
+// 模型選項端點
+app.get('/api/rag/models', authenticateToken, (req, res) => {
+  // 模擬從API獲取的模型列表
+  const models = [
+    { 
+      id: 'default', 
+      name: '自動選擇', 
+      description: '根據查詢內容自動選擇最合適的模型',
+      type: 'auto',
+      provider: 'system',
+      features: {}
+    },
+    { 
+      id: 'openai-gpt-4-turbo', 
+      name: 'GPT-4 Turbo', 
+      description: '強大的通用大型語言模型',
+      type: 'commercial_api',
+      provider: 'openai',
+      modelName: 'gpt-4-turbo',
+      contextWindow: 128000,
+      maxTokens: 4096,
+      features: {
+        supportsImages: true,
+        supportsComputerUse: true,
+        supportsPromptCaching: true,
+        maxOutput: 4096,
+        inputPrice: 10.00,
+        outputPrice: 30.00
+      },
+      customizableBaseUrl: true
+    },
+    { 
+      id: 'openai-gpt-3.5-turbo', 
+      name: 'GPT-3.5 Turbo', 
+      description: '高效能的通用大型語言模型',
+      type: 'commercial_api',
+      provider: 'openai',
+      modelName: 'gpt-3.5-turbo',
+      contextWindow: 16385,
+      maxTokens: 4096,
+      features: {
+        supportsImages: false,
+        supportsComputerUse: true,
+        supportsPromptCaching: true,
+        maxOutput: 4096,
+        inputPrice: 0.50,
+        outputPrice: 1.50
+      },
+      customizableBaseUrl: true
+    },
+    { 
+      id: 'anthropic-claude-3-sonnet-20240229', 
+      name: 'Claude 3 Sonnet', 
+      description: '優秀的理解和創作能力',
+      type: 'commercial_api',
+      provider: 'anthropic',
+      modelName: 'claude-3-sonnet-20240229',
+      contextWindow: 200000,
+      maxTokens: 8192,
+      features: {
+        supportsImages: true,
+        supportsComputerUse: true,
+        supportsPromptCaching: true,
+        maxOutput: 8192,
+        inputPrice: 3.00,
+        outputPrice: 15.00,
+        cacheWritePrice: 3.75,
+        cacheReadPrice: 0.30
+      },
+      customizableBaseUrl: true
+    },
+    { 
+      id: 'anthropic-claude-3-haiku-20240307', 
+      name: 'Claude 3 Haiku', 
+      description: '最快速的Claude模型',
+      type: 'commercial_api',
+      provider: 'anthropic',
+      modelName: 'claude-3-haiku-20240307',
+      contextWindow: 200000,
+      maxTokens: 4096,
+      features: {
+        supportsImages: true,
+        supportsComputerUse: true,
+        supportsPromptCaching: true,
+        maxOutput: 4096,
+        inputPrice: 0.25,
+        outputPrice: 1.25
+      },
+      customizableBaseUrl: true
+    },
+    { 
+      id: 'ollama-llama3', 
+      name: 'Llama 3 70B', 
+      description: '本地運行的高效開源模型',
+      type: 'open_source',
+      provider: 'ollama',
+      modelName: 'llama3:70b',
+      endpoint: 'http://localhost:11434/api',
+      contextWindow: 8192,
+      maxTokens: 2048,
+      features: {
+        supportsImages: false,
+        supportsComputerUse: true,
+        supportsPromptCaching: false,
+        maxOutput: 2048,
+        inputPrice: 0,
+        outputPrice: 0
+      },
+      customizableBaseUrl: false
+    },
+    { 
+      id: 'ollama-mistral', 
+      name: 'Mistral 7B', 
+      description: '本地運行的輕量級開源模型',
+      type: 'open_source',
+      provider: 'ollama',
+      modelName: 'mistral:7b',
+      endpoint: 'http://localhost:11434/api',
+      contextWindow: 8192,
+      maxTokens: 2048,
+      features: {
+        supportsImages: false,
+        supportsComputerUse: true,
+        supportsPromptCaching: false,
+        maxOutput: 2048,
+        inputPrice: 0,
+        outputPrice: 0
+      },
+      customizableBaseUrl: false
+    }
+  ];
+  
+  // 延遲響應，模擬API調用
+  setTimeout(() => {
+    res.json(models);
+  }, 500);
+});
+
 // RAG 查詢端點
 app.post('/api/rag/query', authenticateToken, (req, res) => {
-  const { query } = req.body;
+  const { query, modelId, apiKey, baseUrl } = req.body;
   const { role, departmentId } = req.user;
   
   if (!query) {

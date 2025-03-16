@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Sidebar from '../components/Sidebar';
 import RAGQueryPage from './RAGQueryPage';
 import WorkspacePage from './WorkspacePage';
+import ApiKeysPage from './ApiKeysPage';
 import api from '../services/api';
 import './Dashboard.css';
 
@@ -54,6 +55,7 @@ const Dashboard: React.FC = () => {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<RAGQueryPage />} />
+            <Route path="/api-keys" element={<ApiKeysPage />} />
             <Route path="/workspace/:workspaceId" element={<WorkspacePage />} />
           </Routes>
         </main>

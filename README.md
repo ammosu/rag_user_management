@@ -1,79 +1,103 @@
-# 企業級 RAG 系統測試環境
+# RAG System with LLM Routing
 
-這個專案包含一個模擬後端伺服器和前端應用，用於測試企業級 RAG 系統。
+This project is a RAG (Retrieval-Augmented Generation) system with intelligent LLM routing capabilities. It integrates with various language models and provides a unified API for querying them.
 
-## 目錄結構
+## Features
 
-- `mock-server/`: 模擬後端伺服器
-- `frontend/`: 前端應用
+- **Authentication System**: JWT-based authentication with SSO support
+- **LLM Integration**: Support for multiple language models (OpenAI, Anthropic, local models)
+- **Intelligent Model Routing**: Route queries to the most appropriate model based on content, cost, user role, etc.
+- **RAG Capabilities**: Retrieve relevant documents and use them as context for LLM queries
+- **OpenAI Compatible API**: API endpoints compatible with the OpenAI API format
+- **API Key Management**: Generate and manage API keys for programmatic access
 
-## 設置步驟
+## Architecture
 
-### 1. 設置模擬伺服器
+The system consists of the following components:
 
-1. 安裝依賴：
-   ```bash
-   cd mock-server
+- **Authentication Services**: Handle user authentication and authorization
+- **Model Services**: Manage language models and routing rules
+- **LLM Clients**: Interface with different language model providers
+- **Query Classifier**: Analyze queries to determine their characteristics
+- **Retrieval Service**: Retrieve relevant documents from the knowledge base
+- **API Endpoints**: Provide access to the system's functionality
+
+## API Endpoints
+
+### Authentication
+
+- `POST /api/auth/login`: Log in with email and password
+- `POST /api/auth/register`: Register a new user
+- `GET /api/auth/profile`: Get the current user's profile
+
+### API Keys
+
+- `GET /api/auth/api-keys`: Get the current user's API keys
+- `POST /api/auth/api-keys`: Generate a new API key
+- `DELETE /api/auth/api-keys/:id`: Revoke an API key
+
+### RAG
+
+- `POST /api/rag/query`: Execute a RAG query
+- `GET /api/rag/models`: Get available models for RAG queries
+
+### Model Management (Admin Only)
+
+- `GET /api/model-manager/models`: Get all models
+- `GET /api/model-manager/models/active`: Get active models
+- `GET /api/model-manager/models/:id`: Get a specific model
+- `POST /api/model-manager/models`: Create a new model
+- `PUT /api/model-manager/models/:id`: Update a model
+- `DELETE /api/model-manager/models/:id`: Delete a model
+- `PATCH /api/model-manager/models/:id/active`: Toggle a model's active status
+
+### Routing Rules (Admin Only)
+
+- `GET /api/model-manager/routing-rules`: Get all routing rules
+- `GET /api/model-manager/routing-rules/active`: Get active routing rules
+- `POST /api/model-manager/routing-rules`: Create a new routing rule
+- `PUT /api/model-manager/routing-rules/:id`: Update a routing rule
+- `DELETE /api/model-manager/routing-rules/:id`: Delete a routing rule
+- `PATCH /api/model-manager/routing-rules/:id/active`: Toggle a routing rule's active status
+
+### OpenAI Compatible API
+
+- `POST /v1/chat/completions`: Chat completions API
+- `POST /v1/completions`: Completions API
+- `GET /v1/models`: List available models
+- `GET /v1/models/:model`: Get model information
+
+## Getting Started
+
+1. Install dependencies:
+   ```
    npm install
    ```
 
-2. 啟動模擬伺服器：
-   ```bash
-   npm start
+2. Set up environment variables:
    ```
-   
-   模擬伺服器將在 http://localhost:3002 上運行。
+   cp .env.example .env
+   ```
 
-### 2. 設置前端應用
+3. Start the development server:
+   ```
+   npm run dev
+   ```
 
-1. 安裝前端依賴：
-   ```bash
+4. Start the frontend:
+   ```
    cd frontend
-   npm install
-   ```
-
-2. 啟動前端應用：
-   ```bash
    npm start
    ```
-   
-   前端應用將在 http://localhost:3000 上運行。
 
-## 測試帳號
+## Environment Variables
 
-模擬伺服器提供以下測試帳號：
+- `PORT`: Server port (default: 3000)
+- `MONGO_URL`: MongoDB connection URL
+- `JWT_SECRET`: Secret for JWT tokens
+- `OPENAI_API_KEY`: OpenAI API key
+- `ANTHROPIC_API_KEY`: Anthropic API key
 
-| 角色 | 用戶名 | 密碼 | 部門 |
-|-----|-------|------|-----|
-| 管理員 | admin | admin123 | 管理部 |
-| 研發部經理 | manager1 | manager123 | 研發部 |
-| 市場部經理 | manager2 | manager123 | 市場部 |
-| 研發部成員 | user1 | user123 | 研發部 |
-| 市場部成員 | user2 | user123 | 市場部 |
+## License
 
-## 測試場景
-
-### 1. 認證功能
-
-- 使用不同角色的用戶登入
-- 測試 SSO 登入功能（Google、Microsoft、SAML）
-
-### 2. 權限控制
-
-- 管理員可以看到所有工作區（4個）
-- 部門經理可以看到自己部門的工作區、公共工作區和管理層工作區（3個）
-- 普通用戶只能看到自己部門的工作區和公共工作區（2個）
-
-### 3. RAG 查詢功能
-
-- 研發部用戶查詢「我們的 API 文檔」會得到完整回應
-- 研發部用戶查詢「公司的市場策略」會得到權限錯誤
-- 市場部用戶查詢「我們的 API 文檔」會得到權限錯誤
-- 市場部用戶查詢「公司的市場策略」會得到完整回應
-- 管理員可以查詢所有內容，包括「公司戰略規劃」
-
-## 注意事項
-
-1. 模擬伺服器僅用於測試，不包含真實的資料庫和業務邏輯。
-2. 所有 SSO 登入都是模擬的，不會真正連接到外部身份提供商。
-3. RAG 查詢回應是預設的，基於簡單的關鍵詞匹配。
+This project is licensed under the MIT License.

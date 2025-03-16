@@ -1,0 +1,87 @@
+.model-selector {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 16px;
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.selector-section {
+  margin-bottom: 16px;
+}
+
+.selector-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.selector-section select,
+.selector-section input[type="text"],
+.selector-section input[type="password"] {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #2d2d2d;
+  border: 1px solid #3d3d3d;
+  color: #e0e0e0;
+  font-size: 14px;
+}
+
+.selector-section select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e0e0e0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+.info-text {
+  font-size: 12px;
+  color: #a0a0a0;
+  margin-top: 4px;
+}
+
+.custom-url-section {
+  margin-top: 12px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.model-features {
+  background-color: #2d2d2d;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 16px;
+}
+
+.feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.feature-item {
+  margin-right: 16px;
+  margin-bottom: 8px;
+  color: #4caf50;
+}
+
+.model-specs {
+  border-top: 1px solid #3d3d3d;
+  padding-top: 12px;
+}
+
+.spec-item {
+  margin-bottom: 6px;
+  font-size: 13px;
+}

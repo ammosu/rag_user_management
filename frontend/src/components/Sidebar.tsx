@@ -28,6 +28,15 @@ const Sidebar: React.FC<SidebarProps> = ({ workspaces, isLoading }) => {
             </NavLink>
           </li>
           
+          <li>
+            <NavLink 
+              to="/dashboard/api-keys" 
+              className={({ isActive }) => isActive ? 'active' : ''}
+            >
+              API 密鑰管理
+            </NavLink>
+          </li>
+          
           <li className="nav-section">
             <h3>知識庫</h3>
             {isLoading ? (
